@@ -3,7 +3,7 @@
  *   All rights reserved.
  */
 
-import { chartTable } from "./Controller.js";
+import { chartTable } from "./MVVM/Controller.js";
 
 
 // Define the element variable
@@ -27,4 +27,5 @@ const pieChart = chartTable.createChart(
 // without stack overflow? needs a flag to only run once?
 // Console.log the SVG element
 console.log(myPie);
-console.log(pieChart.data)
+//console.log(pieChart.data)// undefined
+myPie.data = [4,5,6]// => should be passed to controller => which forces a re-render with passing to pieChart ???

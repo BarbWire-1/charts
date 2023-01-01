@@ -3,11 +3,12 @@
  *   All rights reserved.
  */
 
-import { PieChart } from "./Pie.js";
+import { PieChart } from "../Charts/PieChart.js";
 // Model class representing the data for the chart table
 class ChartTableModel {
-    constructor (data) {
+    constructor (data, element) {
         this.data = data;
+        this.element = element;
     }
 }
 
