@@ -32,6 +32,11 @@ export class PieChart {
         this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
         this.svg.setAttribute('width', this.width);
         this.svg.setAttribute('height', this.height);
+        this.bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        this.bg.setAttribute('width', '100%');
+        this.bg.setAttribute('height', '100%');
+        this.bg.setAttribute('fill', '#e2e2e2');
+       
 
         // Calculate the total value of the data
         const total = this.data.reduce((sum, value) => sum + value, 0);
@@ -75,6 +80,7 @@ export class PieChart {
         }
 
         // Append the <g> element to the SVG element
+        this.svg.appendChild(this.bg);
         this.svg.appendChild(g);
 
         // Append the SVG element to the chart container element
