@@ -27,4 +27,4 @@ const pieChart = chartTable.createChart(
 // without stack overflow? needs a flag to only run once?
 // Console.log the SVG element
 console.log(myPie);
-console.log(myPie.data)
+console.log(pieChart.data)

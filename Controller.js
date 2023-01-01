@@ -44,6 +44,7 @@ class ChartTableViewModel {
     withData(data) {
         console.log(`Setting data: ${data}`); // Debugging line - ok
         this.model.data = data;
+        
         return this;
     }
 
@@ -79,6 +80,17 @@ class ChartTableViewModel {
     set type(value) {
         console.log('Setting type:', value); // Debugging line
         this.view.type = value;
+    }
+    get data() {
+        console.log('Getting data:', this.view.data); // Debugging line - ok
+        return this.view.data;
+    }
+    set data(value) {
+        console.log('Setting data:', value); // Debugging line
+        this.view.data = value;
+    }
+    getElement() {
+        return this.element
     }
 
     // Method that creates a new chart based on the given type
@@ -117,11 +129,11 @@ class ChartTableViewModel {
 }
 
 // OTHERWISE element undefined here? WTH???
-let element;
+let element, type, data
 // Create a new chart table viewmodel using the builder pattern
 export const chartTable = new ChartTableViewModel(new ChartTableModel(), new ChartTableView())
-    .withType('pie')
-    .withData([ 1, 2, 3 ])
+    .withType(type)
+    .withData(data)
     .withElement(element)
     .build();
 
