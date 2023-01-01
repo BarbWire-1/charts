@@ -116,7 +116,7 @@ class ChartTableViewModel {
 
 }
 
-
+// OTHERWISE element undefined here? WTH???
 let element;
 // Create a new chart table viewmodel using the builder pattern
 export const chartTable = new ChartTableViewModel(new ChartTableModel(), new ChartTableView())
