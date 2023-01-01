@@ -15,10 +15,11 @@ const pieChart = chartTable.createChart(
     'pie', // Type of chart to create
     [ 1, 2, 3, 4, 5 ], // Data
     myPie, // Element for rendering the pie chart
-    400, // Width
-    400, // Height
+    // TODO add x,y for pie itself and scale to resize?
+    800, // Width - only for svg/rect
+    800, // Height - only for svg/rect
     [ '#4a4e4d', '#0e9aa7', '#3da4ab', '#f6cd61', '#fe8a71' ], // Colors
-    100 // Stroke width
+    50 // Stroke width
 ).render();
 
 

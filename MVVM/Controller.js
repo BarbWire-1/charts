@@ -133,8 +133,8 @@ class ChartTableViewModel {
 let element, type, data
 // Create a new chart table viewmodel using the builder pattern
 export const chartTable = new ChartTableViewModel(new ChartTableModel(), new ChartTableView())
-    .withType(type)
-    .withData(data)
-    .withElement(element)
-    .build();
+    // .withType(type)
+    // .withData(data)
+    // .withElement(element)
+    // .build();
 

@@ -4,7 +4,9 @@
  */
 export class PieChart {
     constructor (data, element, width, height, colors, strokeWidth) {
-        this.data = data;
+        // to show highest val first
+        //TODO . Not sure about this. Nice for static view, but would I like to change when data relations change?
+        this.data = data.sort((a,b) => b - a);
         this.width = width;
         this.height = height;
         this.strokeWidth = strokeWidth;
@@ -46,25 +48,28 @@ export class PieChart {
 
         // Create the <g> element that will hold the pie chart
         const g = document.createElementNS('http://www.w3.org/2000/svg', 'g');
-        g.setAttribute('transform', `translate(${this.width / 2}, ${this.height / 2}) rotate(-90)`);
+        
+        // TODO this transform to position and resize pie
+        g.setAttribute('transform', `translate(${this.width / 2}, ${this.height / 2}) rotate(-90) scale(2,2)`);
         // Create the <path> elements that will represent the pie chart segments
+        
+      
         for (let i = 0; i < this.data.length; i++) {
+            // adjust to fix outer r
+            const radius = 100 - this.strokeWidth / 2;
+            
             // Calculate the ending angle of the pie chart segment
-            let endAngle = startAngle + (this.data[ i ] / total) * 2 * Math.PI;
-
-            if (endAngle > 2 * Math.PI) endAngle = 2 * Math.PI;
-            const close = endAngle >= 359.99 ? 'z' : ''
+            let endAngle = startAngle + (this.data[ i ] / total) * 2 * Math.PI
+           
             // Calculate the starting and ending points of the pie chart segment
-            const startPoint = { x: Math.cos(startAngle) * 100, y: Math.sin(startAngle) * 100 };
-            const endPoint = { x: Math.cos(endAngle) * 100, y: Math.sin(endAngle) * 100 };
+            const startPoint = { x: Math.cos(startAngle) * radius , y: Math.sin(startAngle) * radius };
+            const endPoint = { x: Math.cos(endAngle) * radius, y: Math.sin(endAngle) * radius };
             // Determine whether a long or short arc should be drawn
             const arcFlag = Math.abs(endAngle - startAngle) >= Math.PI ? 1 : 0;
-
+           
             // Generate the path data for the pie chart segment
-            const pathData = `M ${startPoint.x} ${startPoint.y} A 100 100 0 ${arcFlag} 1 ${endPoint.x} ${endPoint.y} `;
-            // Generate the path data for the pie chart segment
-
-            // Create the <path> element and set its d attribute
+            const pathData = `M ${startPoint.x} ${startPoint.y} A ${radius} ${radius} 0 ${arcFlag} 1 ${endPoint.x} ${endPoint.y} `;
+            
             const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
             path.setAttribute('d', pathData);
             path.setAttribute('stroke', this.colors[ i ]);
@@ -79,7 +84,7 @@ export class PieChart {
             startAngle = endAngle;
         }
 
-        // Append the <g> element to the SVG element
+        // Append background and g with slices to the SVG element
         this.svg.appendChild(this.bg);
         this.svg.appendChild(g);
 
