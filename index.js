@@ -13,6 +13,8 @@ window.onload = () => {
             this.element = obj.element;
             this.data = obj.data;
             this.background = {
+                // x: obj.background.x,
+                // y: obj.background.y,
                 width: obj.background.width,
                 height: obj.background.height,
                 fill: obj.background.fill,
@@ -37,6 +39,8 @@ window.onload = () => {
             this.background.setAttribute('width', '100%');
             this.background.setAttribute('height', '100%');
             this.background.setAttribute('fill', '#e2e2e2');
+            
+            // this.element.style.left = this.background.x +'px'
         
             //TODO <g> element to hold the graphs
             //TODO why is this.svg undefined without the use of the proxy????
@@ -78,6 +82,12 @@ window.onload = () => {
             this.background.setAttribute('fill', newValue)
         }
     });
+    // Object.defineProperty(ChartTable.prototype, 'x', {
+    //     get() { return this.background.x },
+    //     set(newValue) {
+    //         this.element.style.left = newValue +'px'
+    //     }
+    // });
     
     
     
@@ -88,7 +98,7 @@ window.onload = () => {
             type: 'pie',
             element: testElement,
             data: [ 1, 2, 3 ],
-            background: { width: 600, height: 600, fill: 'grey' },
+            background: {x: 300, y: 300, width: 600, height: 600, fill: 'grey' },
             colors: [ '#4a4e4d', '#0e9aa7', '#3da4ab', '#f6cd61', '#fe8a71' ]
         }
     )
@@ -100,10 +110,12 @@ window.onload = () => {
     testObject.background.fill = 'green'// NOT APPLIED
 
     testObject.fill = 'orange';
-    testObject.width = 1000;
+    testObject.width = 600;
     testObject.height = 500;
     testObject.data = [ 6, 7, 8, 9 ]
     testObject.type = 'bars'
+    testElement.style.left = '300px'
+    testElement.style.top = '300px'
     //TODO this way the background-el IS background. Not sure whether to keep this or not
     //console.log(testObject.background.style.fill = 'green')
 }
