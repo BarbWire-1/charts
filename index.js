@@ -3,47 +3,6 @@
  *   All rights reserved.
  */
 
-// import { chartTable } from "./MVVM/Controller.js";
-// 
-// 
-// // Define the element variable
-// const myPie = document.getElementById('chart-table');
-// 
-// //TODO make this a function with an object passed as args in controller?
-// // Create a new pie chart using the viewmodel
-// // const pieChart = chartTable(
-// //     'pie', // Type of chart to create
-// //     [ 1, 2, 3, 4, 5 ], // Data
-// //     myPie, // Element for rendering the pie chart
-// //     // TODO add x,y for pie itself and scale to resize?
-// //     800, // Width - only for svg/rect
-// //     800, // Height - only for svg/rect
-// //     [ '#4a4e4d', '#0e9aa7', '#3da4ab', '#f6cd61', '#fe8a71' ], // Colors
-// //     50 // Stroke width
-// // );
-// 
-// const pieChart = chartTable(
-//     'pie', // Type of chart to create
-//     [ 1, 2, 3, 4, 5 ], // Data
-//     myPie, // Element for rendering the pie chart
-//     
-//     // TODO add x,y for pie itself and scale to resize?
-//     800, // Width - only for svg/rect
-//     800, // Height - only for svg/rect
-//     50, // Stroke width
-//     [ '#4a4e4d', '#0e9aa7', '#3da4ab', '#f6cd61', '#fe8a71' ], // Colors
-//     // 
-// );
-// 
-// 
-// 
-// //TODO YIKES.... why element is undefined again?
-// //TODO where to implement update/rerender??
-// // without stack overflow? needs a flag to only run once?
-// // Console.log the SVG element
-// console.log(myPie);
-// //console.log(pieChart.data)// undefined
-// myPie.data = [ 4, 5, 6 ]// => should be passed to controller => which forces a re-render with passing to pieChart ???
 
 window.onload = () => {
 class ChartTable {
@@ -57,73 +16,78 @@ class ChartTable {
             fill: obj.background.fill,
         };
         this.colors = obj.colors;
-       
+        
+        //TODO decide if this is obsolete
         this.count = 0;
         this.id = `chartTable${this.count}`
         
         
-        // CREATE SVG CONTAINER AND COLORED RECT
+        // CREATEAND APPEND SVG CONTAINER AND COLORED RECT
         this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        this.svg.setAttribute('width', this.width);
-        this.svg.setAttribute('height', this.height);
-        this.bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-        this.bg.setAttribute('width', '100%');
-        this.bg.setAttribute('height', '100%');
-        this.bg.setAttribute('fill', '#e2e2e2');
-       
-        this.svg.appendChild(this.bg);
-    
-        //this.svg.appendChild(g);
-
-        // Append the SVG element to the chart container element
         this.element.appendChild(this.svg);
         
+        this.svg.setAttribute('width', this.width);
+        this.svg.setAttribute('height', this.height);
+        this.background = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+        this.svg.appendChild(this.background);
         
-       this.proxy = new Proxy(this, {
-           set: (target, property, value) => {
-
-                // if (property === 'width' || 'height') {
-                //    target.svg.setAttribute(property, value);  
-                // }
-                // if (property === 'fill') {
-                //    target.bg.setAttribute('fill', value);
-                // }
-                target[ property ] = value;
-                return true;
-            },
-            get: (target, property) => {
-                return target[ property ];
-            },
-        });
+        this.background.setAttribute('width', '100%');
+        this.background.setAttribute('height', '100%');
+        this.background.setAttribute('fill', '#e2e2e2');
+       
+        //TODO <g> element to hold the graphs
+        //TODO why is this.svg undefined without the use of the proxy????
+        // although I don't even get/set them here?
+        this.proxy = new Proxy(this, {
+            set: (target, property, value) => {
+                    target[ property ] = value;
+                    return true;
+                },
+                get: (target, property) => {
+                    return target[ property ];
+                },
+            });
     
-        
-        
     }
-    get width() {
-        console.log(`Getting width: ${this.background.width}`);
-        return this.background.width;
-    }
-    set width(nv) {
-        console.log(`Setting width: ${nv}`);
-        this.svg.setAttribute('width', nv)
-    }
+   
+    // get width() {
+    //     //console.log(`Getting width: ${this.background.width}`);
+    //     return this.background.width;
+    // }
+    // set width(nv) {
+    //     //console.log(`Setting width: ${nv}`);
+    //     this.background.width = nv
+    //     this.svg.setAttribute('width', nv)
+    // }
     get height() {
-        console.log(`Getting height: ${this.background.height}`);
+        //console.log(`Getting height: ${this.background.height}`);
         return this.background.height;
     } 
     set height(nv) {
-        console.log(`Setting height: ${nv}`);
+        //console.log(`Setting height: ${nv}`);
+        this.background.height = nv
         this.svg.setAttribute('height', nv)
     }
     get fill() {
-        console.log(`Getting fill: ${this.background.fill}`);
+        //console.log(`Getting fill: ${this.background.fill}`);
         return this.background.fill;
     }
     set fill(nv) {
-        console.log(`Setting height: ${nv}`);
-        this.bg.setAttribute('fill', nv)
+        //console.log(`Setting height: ${nv}`);
+        this.background.fill = nv
+        this.background.setAttribute('fill', nv)
     }
 }
+    Object.defineProperty(ChartTable.prototype, 'width', {
+        get() { return this.background.width },
+        set(newValue) {
+            
+            this.svg.setAttribute('width', newValue)
+           
+        }
+    })
+    
+    
     
  
     let testElement = document.getElementById('chart-table')
@@ -141,10 +105,12 @@ class ChartTable {
     console.log(testObject);
 
     testObject.data = [ 5, 6, 7 ];
-    console.log(testObject.proxy.data);
+    testObject.background.fill = 'green'// NOT APPLIED
 
     testObject.fill = 'orange';
     testObject.width = 1000;
     testObject.data = [ 6, 7, 8, 9 ]
-    console.log(testObject)
+    testObject.type = 'bars'
+    //TODO this way the background-el IS background. Not sure whether to keep this or not
+    // console.log(testObject.background.style.fill = 'green')
 }
