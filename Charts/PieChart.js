@@ -16,29 +16,18 @@ export class PieChart {
         this.element = element;
     }
 
-    // Setter methods for the pie chart settings
-    withDimensions(width, height, strokeWidth) {
-        console.log(`Setting pieChart-dimensions: ${width} x ${height}, strokeWidth: ${strokeWidth}`); // Debugging line
-        this.width = width;
-        this.height = height;
-        this.strokeWidth = strokeWidth || 10;
-    }
-    withColors(colors) {
-        console.log(`Setting pieChart-colors: ${colors}`); // Debugging line
-        this.colors = colors;
-    }
 
     // Render method that creates and updates the pie chart
     render() {
-        // Create the SVG element and set its dimensions
-        this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-        this.svg.setAttribute('width', this.width);
-        this.svg.setAttribute('height', this.height);
-        this.bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-        this.bg.setAttribute('width', '100%');
-        this.bg.setAttribute('height', '100%');
-        this.bg.setAttribute('fill', '#e2e2e2');
-       
+    //     // Create the SVG element and set its dimensions
+    //     this.svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    //     this.svg.setAttribute('width', this.width);
+    //     this.svg.setAttribute('height', this.height);
+    //     this.bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
+    //     this.bg.setAttribute('width', '100%');
+    //     this.bg.setAttribute('height', '100%');
+    //     this.bg.setAttribute('fill', '#e2e2e2');
+    //    
 
         // Calculate the total value of the data
         const total = this.data.reduce((sum, value) => sum + value, 0);

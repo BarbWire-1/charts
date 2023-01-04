@@ -27,10 +27,14 @@ class ChartTableView {
 
 // Viewmodel class that acts as a bridge between the model and the view
 class ChartTableViewModel {
-    constructor (model, view, element) {
+    constructor (model, view, element, width, height, strokeWidth, colors) {
         this.model = model;
         this.view = view;
         this.element = element;
+        this.width = width;
+        this.height = height;
+        this.strokeWidth = strokeWidth;
+        this.colors = colors
     }
 
     // Builder methods
@@ -132,9 +136,13 @@ class ChartTableViewModel {
 // OTHERWISE element undefined here? WTH???
 let element, type, data
 // Create a new chart table viewmodel using the builder pattern
-export const chartTable = new ChartTableViewModel(new ChartTableModel(), new ChartTableView())
-    // .withType(type)
-    // .withData(data)
-    // .withElement(element)
-    // .build();
+export const chartTable = (type, data, element,width, height, strokeWidth, colors) => {
+    return new ChartTableViewModel(new ChartTableModel(), new ChartTableView())
+        .withType(type)
+        .withData(data)
+        .withElement(element)
+        .withDimensions(width, height, strokeWidth)
+        .withColors(colors)
+        .build();
+}
 
