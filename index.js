@@ -21,7 +21,7 @@ window.onload = () => {
             //TODO decide if this is obsolete
             this.count = 0;
             this.id = `chartTable${this.count}`
-            
+           
             
             // CREATE AND APPEND SVG CONTAINER AND COLORED RECT
             // SAME FOR ALL TYPES - DON'T RE-RENDER FOR CHANGED CHART
@@ -34,7 +34,7 @@ window.onload = () => {
             this.bg.setAttribute('height', '100%');
             this.bg.setAttribute('fill', this.style.fill);
             
-             //TODO <g> element to hold the graphs
+            //TODO <g> element to hold the graphs
         
            
             
@@ -42,25 +42,27 @@ window.onload = () => {
             this.element.appendChild(this.svg);
         }
          
-    }
+    
 
 
 
-        // DEFINE STYLE-PROPS FOR HOLDING BACKGROUND
-//         set style(newValue) {
-//             console.log('Setting style: ' + JSON.stringify(newValue));
-//             this._style = newValue;
-//             this.svg.setAttribute('width', this.style.width);
-//             this.svg.setAttribute('height', this.style.height);
-//             this.bg.setAttribute('fill', this.style.fill);
-//         }
-// 
-//         get style() {
-//             console.log('Getting style: ' + JSON.stringify(this._style));
-//             return this._style;
-//         }
+        // // DEFINE STYLE-PROPS FOR HOLDING BACKGROUND
+        // get style() {
+        //     console.log('Getting style: ' + JSON.stringify(this._style));
+        //     return this._style;
+        // }
+        // set style(newValue) {
+        //     console.log('Setting style: ' + JSON.stringify(newValue));
+        //    
+        //     this._style = newValue;
+        //     this.svg?.setAttribute('width', this._style.width);
+        //     this.svg?.setAttribute('height', this.style.height);
+        //     this.bg?.setAttribute('fill', this.style.fill);
+        // }
+
+        
        
-   
+    }
     
     
    
@@ -142,7 +144,7 @@ window.onload = () => {
     testObject.data = [ 5, 6, 7 ];
     testObject.fill = 'blue';
     testObject.style.width = 30;// not applied
-    testObject.width = 400;
+    testObject.width = 700;
     testObject.height = 200;
     testObject.data = [ 6, 7, 8, 9 ]
     testObject.type = 'bars'
@@ -150,7 +152,7 @@ window.onload = () => {
     testObject.y = 100
     console.log(testObject.style)
     console.log(testObject.style.width)// can read but not write here. check the structure!
-    console.log(testObject.fill)
+    console.log(testObject.style.fill)
     // testElement.style.top = '300px'
     //TODO this way the background-el IS background. Not sure whether to keep this or not
     //console.log(testObject.background.style.fill = 'green')
