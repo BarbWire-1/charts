@@ -41,7 +41,8 @@ window.onload = () => {
            
         }
        
-//        // TODO this one would be nice to target one element!
+//      // TODO this one would be nice to target one element!
+        // could have methods to pass different style.props to different els, but overkill here
 //         get style() {
 //             return this._style;
 //         }
