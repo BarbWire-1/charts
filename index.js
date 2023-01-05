@@ -41,36 +41,16 @@ window.onload = () => {
            
         }
        
-       
-        //         // DEFINE STYLE-PROPS FOR HOLDING BACKGROUND
-        //         get style() { // returns wrong values as setter not working on style
-        //                 console.log('Getting style: ' + JSON.stringify(this._style));
-        //                 return this._style;
-        //             }
-        //         set style(newValue) { // not called
-        //                 console.log('Setting style: ' + JSON.stringify(newValue));
-        //
-        //                 this._style = newValue;
-        //                 this.#svg.setAttribute('width', this._style.width);
-        //                 this.#svg.setAttribute('height', this._style.height);
-        //                 this.#bg.setAttribute('fill', this._style.fill);
-        //             }
-        
-        get style() {
-            return {
-                get width() { return this.style.width },
-                get height() { return this.style.height },
-                get fill() { return this.style.fill },
-                get x() { return this.style.x },
-                get y() { return this.style.y },
-            }
-        };
-        set style(newValue) {
-            style.width = {
-                this.style.width = newValue;
-                this.#svg.setAttribute('width', newValue)
-            }
-        }
+//        // TODO this one would be nice to target one element!
+//         get style() {
+//             return this._style;
+//         }
+// 
+//         set style(newValue) {
+//             this._style = {
+//                 ...this._style,
+//                 ...newValue
+//             };
         
         
         
