@@ -5,80 +5,90 @@
 
 
 window.onload = () => {
+   
     
     class ChartTable {
         //PRIVATES
-        #svg;
-        #bg;
         #element;
+        #svg;
+        #background
         
         constructor (obj) {
             
             this.type = obj.type;
             this.#element = obj.element;
             this.data = obj.data;
-            this.style = obj.style
-            //this._style = obj.style
+            this.style = obj.background
             this.colors = obj.colors;
             
             // CREATE AND APPEND SVG CONTAINER AND COLORED RECT
             // SAME FOR ALL TYPES - DON'T RE-RENDER FOR CHANGED CHART
             this.#svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-            this.#svg.setAttribute('width', this.style.width);
-            this.#svg.setAttribute('height', this.style.height);
+            this.#element.appendChild(this.#svg);
             
-            this.#bg = document.createElementNS('http://www.w3.org/2000/svg', 'rect');
-            this.#bg.setAttribute('width', '100%');
-            this.#bg.setAttribute('height', '100%');
-            this.#bg.setAttribute('fill', this.style.fill);
             
             //TODO <g> element to hold the graphs : element.id+chart
         
-           
+           this.renderBackground(this.style)
             
-            this.#svg.appendChild(this.#bg);
-            this.#element.appendChild(this.#svg);
+            
            
         }
-       
-//      // TODO this one would be nice to target one element!
-        // could have methods to pass different style.props to different els, but overkill here
+        renderBackground(style) {
+            this.#element.style.left = style.x + 'px';
+            this.#element.style.top = style.y + 'px';
+            this.#element.style.width = style.width+'px';
+            this.#element.style.height = style.height +'px';
+            this.#element.style.backgroundColor =style.fill;
+            
+        }
+        
 //         get style() {
+//             console.log(`Getting this._style: ${JSON.stringify(this._style)}`)
 //             return this._style;
 //         }
 // 
+//      
 //         set style(newValue) {
-//             this._style = {
-//                 ...this._style,
-//                 ...newValue
-//             };
+//             this._style = newValue
+//             
+//             // let styleObj = this._style
+//             //
+//             // for (const property in styleObj) {
+//             //     console.log(this.style[ property ])
+//             //     this.style[property] = newValue;
+//             //     this.renderBackground(this.style)
+//             // }
+//            
+//             return this._style
+//         }
         
         
-        
-        get width() { return this.style.width };
+        get width() { return obj.style.width };
         set width(newValue) {
             this.style.width = newValue;
-            this.#svg.setAttribute('width', newValue)
+            this.renderBackground(this.style)
         };
         get height() { return this.style.height };
         set height(newValue) {
             this.style.height = newValue;
-            this.#svg.setAttribute('height', newValue)
+            // console.log('Setting height: '+ this.style.height)
+            this.renderBackground(this._style)
         };
         get fill() { return this.style.fill };
         set fill(newValue) {
             this.style.fill = newValue;
-            this.#bg.setAttribute('fill', newValue)
+            this.renderBackground(this.style);
         };
         get x() { return this.style.x };
         set x(newValue) {
             this.style.x = newValue;
-            this.#element.style.left = newValue + 'px'
+            this.renderBackground(this.style);
         };
         get y() { return this.style.y };
         set y(newValue) {
             this.style.y = newValue;
-            this.#element.style.top = newValue + 'px'
+           this.renderBackground(this.style);
         }
         
     }
@@ -91,7 +101,7 @@ window.onload = () => {
             type: 'pie',
             element: testElement,
             data: [ 1, 2, 3 ],
-            style: { x: 300, y: 300, width: 600, height: 600, fill: 'grey' },
+            background: { x: 300, y: 300, width: 600, height: 600, fill: 'grey' },
             colors: [ '#4a4e4d', '#0e9aa7', '#3da4ab', '#f6cd61', '#fe8a71' ]
         }
     )
@@ -99,22 +109,22 @@ window.onload = () => {
     console.log(`testObject: ${JSON.stringify(testObject)}`)
     console.log(`style: ${JSON.stringify(testObject.style)}`);
     //WHY??? not applied?
-    testObject.style.fill = 'orange'
+    testObject.fill = 'orange'
 
-    testObject.data = [ 5, 6, 7 ];
-    testObject.fill = 'blue';
-    testObject.style.width = 30;// not applied
-    testObject.width = 700;
-    testObject.height = 200;
-    testObject.data = [ 6, 7, 8, 9 ]
-    testObject.type = 'bars'
-    testObject.x = 200
-    testObject.y = 100
-   
+        //  testObject.data = [ 5, 6, 7 ];
+        // testObject.fill = 'blue';
+//      testObject.style.width = 30;
+     testObject.width = 100;
+    //   testObject.style.height= 600;
+// //     testObject.data = [ 6, 7, 8, 9 ]
+// //     testObject.type = 'bars'
+//      testObject.style.x = 200
+      testObject.y = 100
+  
     console.log(testObject.style.width)// can read but not write here. check the structure!
     console.log(testObject.style)
     
     // position and dimensions of the background can currently be set on object and/or on element!
-    testElement.style.top = '300px'
+    //testElement.style.top = '300px'
     console.log(testElement)
 }
