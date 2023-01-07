@@ -12,7 +12,7 @@ window.onload = () => {
         #element;
         #svg;
         #background
-        
+        // TODO replace 'this.style' with this background as obj. and then try to access...
         constructor (obj) {
             
             this.type = obj.type;
